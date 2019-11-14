@@ -471,6 +471,7 @@
 					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
 					mv SMpanel/start.sh start.sh
 					rm -rf SMpanel
+					chmod +x start.sh
 					sleep 2
 				done
 			elif [ -f "PocketMine-MP.phar" ]; then
@@ -483,6 +484,7 @@
 					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
 					mv SMpanel/start.sh start.sh
 					rm -rf SMpanel
+					chmod +x start.sh
 					sleep 2
 				done
 			else
@@ -521,6 +523,7 @@
 					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
 					mv SMpanel/start.sh start.sh
 					rm -rf SMpanel
+					chmod +x start.sh
 					sleep 5
 				done
 			elif [ -f "gomint.jar" ]; then
@@ -538,6 +541,7 @@
 					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
 					mv SMpanel/start.sh start.sh
 					rm -rf SMpanel
+					chmod +x start.sh
 					sleep 5
 				done
 			else
@@ -912,6 +916,7 @@
 		git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
 		mv SMpanel/start.sh start.sh
 		rm -rf SMpanel
+		chmod +x start.sh
 		echo -en "\n${IGreen}Панель успешно обновлена!${White}\n"
 		MAIN_MENU
 	}
