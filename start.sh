@@ -148,6 +148,9 @@
 		if [ -f "banned-ips.txt" ]; then
 			rm -rf banned-ips.txt
 		fi
+		if [ -f "Steadfast2.phar" ]; then
+			rm -rf Steadfast2.phar
+		fi
 		if [ -f "banned-ips.json" ]; then
 			rm -rf banned-ips.json
 		fi
@@ -187,9 +190,6 @@
 		if [ -d "crashdumps" ]; then
 			rm -rf crashdumps
 		fi
-		if [ -d "plugin_data" ]; then
-			rm -rf plugin_data
-		fi
 		if [ -f "nukkit.yml" ]; then
 			rm -rf genisys.yml
 		fi
@@ -202,8 +202,20 @@
 		if [ -f "nukkit.yml" ]; then
 			rm -rf nukkit.yml
 		fi
+		if [ -d "clans" ]; then
+			rm -rf clans
+		fi
+		if [ -d "Economy" ]; then
+			rm -rf Economy
+		fi
+		if [ -d "SteadLag" ]; then
+			rm -rf SteadLag
+		fi
 		if [ -f "creativeitems.json" ]; then
 			rm -rf creativeitems.json
+		fi
+		if [ -d "plugin_data" ]; then
+			rm -rf plugin_data
 		fi
 		if [ -f "pocketmine-soft.yml" ]; then
 			rm -rf pocketmine-soft.yml
@@ -213,6 +225,9 @@
 		fi
 		if [ -f "LICENSE" ]; then
 			rm -rf LICENSE
+		fi
+		if [ -d "tests" ]; then
+			rm -rf tests
 		fi
 		if [ -f "README.md" ]; then
 			rm -rf README.md
@@ -261,7 +276,7 @@
 	#}
 
 	function NUKKITX(){
-		echo -en "${IBlue}Установка ядра ${IGreen}NukkitX (1.12).${White}\n"
+		echo -en "${IBlue}Установка ядра ${IGreen}NukkitX (последняя версия).${White}\n"
 		wget https://ci.nukkitx.com/job/NukkitX/job/Nukkit/job/master/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar
 		mv nukkit-1.0-SNAPSHOT.jar nukkit.jar
 		if [ -n "dpkg -l | grep java" ]
@@ -325,13 +340,13 @@
 	function CORE_CHOOSE(){
 		echo -en "\n${BIBlue}Выбор ядра\n\n"
 		echo -en "${White}Выберите ядро на котором будет стоять ваш сервер. Все ядра загружаются с официальных источников!\n"
-		echo -en "1. PocketMine-MP (PHP, MCPE последняя версия)\n"
-		echo -en "2. GenisysPro (PHP, MCPE 1.1)\n"
-		#echo -en "3. NukkitX (JAVA, MCPE 1.1)\n"
-		echo -en "3. NukkitX (JAVA, MCPE последняя версия)\n"
-		echo -en "${BRed}4. SteadFast2 (PHP, MCPE 1.X, это ядро сервера SoulMine)\n${White}"
-		#echo -en "5. GoMint (JAVA, MCPE последняя версия)\n"
-		#echo -en "5. GoMine (GOLANG, MCPE последняя версия)\n"
+		echo -en "1. PocketMine-MP (PHP, MC последняя версия)\n"
+		echo -en "2. GenisysPro (PHP, MC 1.1)\n"
+		#echo -en "3. NukkitX (JAVA, MC 1.1)\n"
+		echo -en "3. NukkitX (JAVA, MC последняя версия)\n"
+		echo -en "${BRed}4. SteadFast2 (PHP, MC 1.X, это ядро сервера SoulMine)\n${White}"
+		#echo -en "5. GoMint (JAVA, MC последняя версия)\n"
+		#echo -en "5. GoMine (GOLANG, MC последняя версия)\n"
 		#Will be released in version 1.5.0
 		#echo -en "7. MiNET (C#, 1.8)\n"
 		echo -en "> "
@@ -451,6 +466,11 @@
 				do
 					bin/php7/bin/php src/pocketmine/PocketMine.php
 					echo -en "${IGreen}Сервер (ядро сервера SoulMine) запустится через 2 секунды. Отменить перезапуск -${BIYellow} CTRL + C.${Color_Off}"
+					sleep 1
+					apt-get install git
+					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
+					mv SMpanel/start.sh start.sh
+					rm -rf SMpanel
 					sleep 2
 				done
 			elif [ -f "PocketMine-MP.phar" ]; then
@@ -458,6 +478,11 @@
 				do
 					bin/php7/bin/php PocketMine-MP.phar
 					echo -en "${IGreen}Сервер перезапустится через 2 секунды. Отменить перезапуск -${BIYellow} CTRL + C.${Color_Off}"
+					sleep 1
+					apt-get install git
+					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
+					mv SMpanel/start.sh start.sh
+					rm -rf SMpanel
 					sleep 2
 				done
 			else
@@ -491,6 +516,11 @@
 					trap START_SERVER_MENU 2
 					java -jar -Xmx${G}G nukkit.jar
 					echo -en "${IGreen}Сервер перезапустится через 5 секунд. Отменить перезапуск -${BIYellow} CTRL + C.${Color_Off}"
+					sleep 1
+					apt-get install git
+					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
+					mv SMpanel/start.sh start.sh
+					rm -rf SMpanel
 					sleep 5
 				done
 			elif [ -f "gomint.jar" ]; then
@@ -503,6 +533,11 @@
 					trap START_SERVER_MENU 2
 					java -jar -Xmx${G}G gomint.jar
 					echo -en "${IGreen}Сервер перезапустится через 5 секунд. Отменить перезапуск -${BIYellow} CTRL + C.${Color_Off}"
+					sleep 1
+					apt-get install git
+					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
+					mv SMpanel/start.sh start.sh
+					rm -rf SMpanel
 					sleep 5
 				done
 			else
@@ -588,6 +623,9 @@
 		if [ -f "banned-ips.txt" ]; then
 			rm -rf banned-ips.txt
 		fi
+		if [ -f "Steadfast2.phar" ]; then
+			rm -rf Steadfast2.phar
+		fi
 		if [ -f "banned-ips.json" ]; then
 			rm -rf banned-ips.json
 		fi
@@ -639,6 +677,15 @@
 		if [ -f "nukkit.yml" ]; then
 			rm -rf nukkit.yml
 		fi
+		if [ -d "clans" ]; then
+			rm -rf clans
+		fi
+		if [ -d "Economy" ]; then
+			rm -rf Economy
+		fi
+		if [ -d "SteadLag" ]; then
+			rm -rf SteadLag
+		fi
 		if [ -f "creativeitems.json" ]; then
 			rm -rf creativeitems.json
 		fi
@@ -653,6 +700,9 @@
 		fi
 		if [ -f "LICENSE" ]; then
 			rm -rf LICENSE
+		fi
+		if [ -d "tests" ]; then
+			rm -rf tests
 		fi
 		if [ -f "README.md" ]; then
 			rm -rf README.md
