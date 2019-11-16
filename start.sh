@@ -430,7 +430,7 @@
 				MAIN_MENU
 			elif [ -f "gomint.jar" ]; then
 				echo -en "\n${BIBlue}Включение сервера...\n\n"
-				echo -en "${White}Введите объём памяти, который хотите выделить сервере.\n"
+				echo -en "${White}Введите объём памяти, который хотите выделить.\n"
 				echo -en "> "
 				read G
 				java -jar -Xmx${G}G gomint.jar
@@ -465,13 +465,15 @@
 				while true
 				do
 					bin/php7/bin/php src/pocketmine/PocketMine.php
-					echo -en "${IGreen}Сервер (ядро сервера SoulMine) запустится через 2 секунды. Отменить перезапуск -${BIYellow} CTRL + C.${Color_Off}"
+					echo -en "${IGreen}Сервер запустится через 2 секунды. Отменить перезапуск -${BIYellow} CTRL + C.${Color_Off}"
 					sleep 1
 					apt-get install git
 					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
 					mv SMpanel/start.sh start.sh
 					rm -rf SMpanel
 					chmod +x start.sh
+					rm -rf logs
+					rm -rf server.log
 					sleep 2
 				done
 			elif [ -f "PocketMine-MP.phar" ]; then
@@ -485,6 +487,8 @@
 					mv SMpanel/start.sh start.sh
 					rm -rf SMpanel
 					chmod +x start.sh
+					rm -rf logs
+					rm -rf server.log
 					sleep 2
 				done
 			else
@@ -524,6 +528,8 @@
 					mv SMpanel/start.sh start.sh
 					rm -rf SMpanel
 					chmod +x start.sh
+					rm -rf logs
+					rm -rf server.log
 					sleep 5
 				done
 			elif [ -f "gomint.jar" ]; then
@@ -542,6 +548,8 @@
 					mv SMpanel/start.sh start.sh
 					rm -rf SMpanel
 					chmod +x start.sh
+					rm -rf logs
+					rm -rf server.log
 					sleep 5
 				done
 			else
@@ -720,7 +728,15 @@
 		if [ -d "world" ]; then
 			rm -rf world
 		fi
-		echo -en "\n${IGreen}Сервер успешно удалён!${White}\n"
+		mkdir your_files
+		mv * your_files
+		apt-get install git
+		git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
+		mv SMpanel/start.sh start.sh
+		rm -rf SMpanel
+		chmod +x start.sh
+		mkdir SMpanel
+		echo -en "\n${IGreen}Сервер успешно удалён! Если у Вас пропали файлы, то они появятся в новой папке.${White}\n"
 		MAIN_MENU
 	}
 
