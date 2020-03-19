@@ -919,7 +919,7 @@
 		echo -en "1. PocketMine-MP\n"
 		echo -en "2. GenisysPro\n"
 		echo -en "3. NukkitX\n"
-		echo -en "${BRed}4. SteadFast2 (лучший выбор)\n${White}"
+		echo -en "4. SteadFast2\n"
 		echo -en "> "
 		UPDATE_CORE_SELECT
 	}
@@ -954,7 +954,7 @@
 	function MAIN_MENU(){
 		echo -en "\n${BIBlue}Главное меню\n"
 		echo -en "\n"
-		echo -en "${White}Пожалуйста, просмотрите список действий. Напишите номер действия и нажмите ENTER\n"
+		echo -en "${White}Пожалуйста, просмотрите список доступных действий и напишите номер выбранного вами действия!\n"
 		echo -en "1. Запустить сервер\n"
 		echo -en "2. Установить сервер\n"
 		echo -en "3. Обновить сервер\n"
