@@ -75,7 +75,7 @@
 
 	#Не смотрите код ниже. Это может навредить вам
 
-	VERSION='1.3.5'
+	VERSION='1.3.6'
 	DIR="$(cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 
 	function NEXT(){
@@ -241,8 +241,9 @@
 		if [ -d "world" ]; then
 			rm -rf world
 		fi
-		apt-get install git
-		apt-get install screen
+		apt-get install git || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian.${White}\n"
+		apt-get install screen || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian.${White}\n"
+		echo -en "${IBlue}Данные старого сервера успешно удалены.${White}\n"
 	}
 
 	#Yes, I tried, but nothing happened
@@ -251,11 +252,11 @@
 		git clone https://github.com/NiclasOlofsson/MiNET.git
 		mv MiNET/* $DIR
 		rm -rf MiNET
-		echo -en "${IBlue}Установка пакетов.${White}\n"
+		echo -en "${IBlue}Установка пакетов...${White}\n"
 		apt install mono-xbuild
 		apt install mono
 		apt install mono-runtime
-		echo -en "${IBlue}Компиляция ядра.${White}\n"
+		echo -en "${IBlue}Компиляция ядра...${White}\n"
 		xbuild src/MiNET/MiNET.sln
 		cd src/MiNET/MiNET.Service/bin/Linux
 		mono MiNET.Service.exe
@@ -283,14 +284,14 @@
 		then
 			echo -en "${IGreen}Java 11 ${IBlue}уже установлена!${White}\n"
 		else
-			echo -en "${IBlue}Установка библеотек ${IGreen}Java 11.${White}\n"
+			echo -en "${IBlue}Установка библиотек ${IGreen}Java 11.${White}\n"
    			apt install openjdk-11-jre-headless
 		fi
 		INSTALL_FINISH
 	}
 
 	function GENISYSPRO(){
-		echo -en "${IBlue}Установка ядра ${IGreen}Genisys.${White}\n"
+		echo -en "${IBlue}Установка ядра ${IGreen}Genisys (1.1.x)${White}.\n"
 		git clone https://github.com/GenisysPro/GenisysPro.git
 		mv GenisysPro/src $DIR
 		rm -rf GenisysPro
@@ -312,8 +313,6 @@
 	}
 
 	function STEADFAST2(){
-		echo -en "${BRed}Ядро сервера SoulMine нужно установить заново? Ну ладно...\n"
-		sleep 5
 		echo -en "${IBlue}Установка ядра ${IGreen}SteadFast2.${White}\n"
 		git clone https://github.com/Hydreon/Steadfast2.git
 		mv Steadfast2/* $DIR
@@ -339,12 +338,12 @@
 
 	function CORE_CHOOSE(){
 		echo -en "\n${BIBlue}Выбор ядра\n\n"
-		echo -en "${White}Выберите ядро на котором будет стоять ваш сервер. Все ядра загружаются с официальных источников!\n"
-		echo -en "1. PocketMine-MP (PHP, MC последняя версия)\n"
-		echo -en "2. GenisysPro (PHP, MC 1.1)\n"
+		echo -en "${White}Выберите ядро, на котором будет стоять Ваш сервер. Все ядра загружаются с официальных источников!\n"
+		echo -en "1. PocketMine-MP (PHP, MC: последняя версия)\n"
+		echo -en "2. GenisysPro (PHP, MC: 1.1)\n"
 		#echo -en "3. NukkitX (JAVA, MC 1.1)\n"
-		echo -en "3. NukkitX (JAVA, MC последняя версия)\n"
-		echo -en "${BRed}4. SteadFast2 (PHP, MC 1.X, это ядро сервера SoulMine)\n${White}"
+		echo -en "3. NukkitX (JAVA, MC: последняя версия)\n"
+		echo -en "${BRed}4. SteadFast2 (PHP, MC: 1.X (все версии))\n${White}"
 		#echo -en "5. GoMint (JAVA, MC последняя версия)\n"
 		#echo -en "5. GoMine (GOLANG, MC последняя версия)\n"
 		#Will be released in version 1.5.0
@@ -382,7 +381,7 @@
 	}
 
 	function CHECKING_INSTALL(){
-		echo -en "\n${White}Выберите действие\n"
+		echo -en "\n${White}Выберите действие:\n"
 		echo -en "1. Запустить установщик\n"
 		echo -en "2. В главное меню\n"
 		echo -en "3. Выйти из панели\n> "
@@ -401,13 +400,13 @@
 				MAIN_MENU
 			else
 				if [ -f "src/pocketmine/PocketMine.php" ]; then
-					echo -en "\n${BIRed}Не найдена работающая библеотека PHP7!\n"
+					echo -en "\n${BIRed}Не найдена работающая библиотека PHP7!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
 					echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
 					echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
 					CHECKING_INSTALL
 				elif [ -f "PocketMine-MP.phar" ]; then
-					echo -en "\n${BIRed}Не найдена работающая библеотека PHP7!\n"
+					echo -en "\n${BIRed}Не найдена работающая библиотека PHP7!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
 					echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
 					echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
@@ -445,7 +444,7 @@
 			fi
 		else
 			if [ -f "nukkit.jar" ]; then
-				echo -en "\n${BIRed}Не найдена работающая библеотека JAVA!\n"
+				echo -en "\n${BIRed}Не найдена работающая библиотека Java!\n"
 				echo -en "${BIRed}Запуск сервера невозможен!\n"
 				echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
 				echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
@@ -465,7 +464,7 @@
 				while true
 				do
 					bin/php7/bin/php src/pocketmine/PocketMine.php
-					echo -en "${IGreen}Сервер запустится через 2 секунды. Отменить перезапуск -${BIYellow} CTRL + C.${Color_Off}"
+					echo -en "${IGreen}Сервер запустится через 2 секунды. Отменить запуск:${BIYellow} CTRL + C.${Color_Off}"
 					sleep 1
 					apt-get install git
 					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
@@ -480,7 +479,7 @@
 				while true
 				do
 					bin/php7/bin/php PocketMine-MP.phar
-					echo -en "${IGreen}Сервер перезапустится через 2 секунды. Отменить перезапуск -${BIYellow} CTRL + C.${Color_Off}"
+					echo -en "${IGreen}Сервер перезапустится через 2 секунды. Отменить перезапуск:${BIYellow} CTRL + C.${Color_Off}"
 					sleep 1
 					apt-get install git
 					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
@@ -493,7 +492,7 @@
 				done
 			else
 				if [ -f "src/pocketmine/PocketMine.php" ]; then
-					echo -en "\n${BIRed}Не найдена работающая библеотека PHP7!\n"
+					echo -en "\n${BIRed}Не найдена работающая библиотека PHP7!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
 					echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
 					echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
@@ -521,7 +520,7 @@
 				do
 					trap START_SERVER_MENU 2
 					java -jar -Xmx${G}G nukkit.jar
-					echo -en "${IGreen}Сервер перезапустится через 5 секунд. Отменить перезапуск -${BIYellow} CTRL + C.${Color_Off}"
+					echo -en "${IGreen}Сервер перезапустится через 5 секунд. Отменить перезапуск:${BIYellow} CTRL + C.${Color_Off}"
 					sleep 1
 					apt-get install git
 					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
@@ -541,7 +540,7 @@
 				do
 					trap START_SERVER_MENU 2
 					java -jar -Xmx${G}G gomint.jar
-					echo -en "${IGreen}Сервер перезапустится через 5 секунд. Отменить перезапуск -${BIYellow} CTRL + C.${Color_Off}"
+					echo -en "${IGreen}Сервер перезапустится через 5 секунд. Отменить перезапуск:${BIYellow} CTRL + C.${Color_Off}"
 					sleep 1
 					apt-get install git
 					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
@@ -561,7 +560,7 @@
 			fi
 		else
 			if [ -f "nukkit.jar" ]; then
-				echo -en "\n${BIRed}Не найдена работающая библеотека Java!\n"
+				echo -en "\n${BIRed}Не найдена работающая библиотека Java!\n"
 				echo -en "${BIRed}Запуск сервера невозможен!\n"
 				echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
 				echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
@@ -588,10 +587,10 @@
 	function START_SERVER_MENU(){
 		echo -en "\n${BIBlue}Запуск сервера\n\n"
 		echo -en "${White}Выберите дальнейшие действия...\n"
-		echo -en "1. Зациклить запуск сервера (автоматический перезапуск)\n"
+		echo -en "1. Зациклить запуск сервера (автоматический перезапуск при падении)\n"
 		echo -en "2. Обычный запуск сервера\n"
 		echo -en "3. Вернуться назад\n"
-		echo -en "* Ядро создано специально для сервера SoulMine.\n\n"
+		echo -en "* Ядро создано специально для форума 24serv.\n\n"
 		echo -en "> "
 		LOOP_SERVER
 	}
