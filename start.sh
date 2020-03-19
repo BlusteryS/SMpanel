@@ -83,7 +83,7 @@
 	}
 
 	function NOT(){
-		echo -en "Такого действия нет. Выберите действие ещё раз...\n> "
+		echo -en "Такого действия нет. Выберите действие ещё раз..\n> "
 	}
 
 	function EXIT(){
@@ -110,7 +110,7 @@
 	}
 
 	function PREPAIR_INSTALL(){
-		echo -en "\n${IBlue}Подготовка к установке сервера...${White}\n"
+		echo -en "\n${IBlue}Подготовка директории для установки сервера..${White}\n"
 		sleep 1
 		if [ -d "bin" ]; then
 			rm -rf bin
@@ -248,15 +248,15 @@
 
 	#Yes, I tried, but nothing happened
 	function MINET(){
-		echo -en "${IBlue}Установка ядра ${IGreen}MiNET${White}\n"
+		echo -en "${IBlue}Установка выбранного вами ядра - ${IGreen}MiNET${White}\n"
 		git clone https://github.com/NiclasOlofsson/MiNET.git
 		mv MiNET/* $DIR
 		rm -rf MiNET
-		echo -en "${IBlue}Установка пакетов...${White}\n"
+		echo -en "${IBlue}Установка необходимых пакетов..${White}\n"
 		apt install mono-xbuild
 		apt install mono
 		apt install mono-runtime
-		echo -en "${IBlue}Компиляция ядра...${White}\n"
+		echo -en "${IBlue}Компиляция ядра..${White}\n"
 		xbuild src/MiNET/MiNET.sln
 		cd src/MiNET/MiNET.Service/bin/Linux
 		mono MiNET.Service.exe
@@ -277,7 +277,7 @@
 	#}
 
 	function NUKKITX(){
-		echo -en "${IBlue}Установка ядра ${IGreen}NukkitX (последняя версия).${White}\n"
+		echo -en "${IBlue}Установка выбранного вами ядра - ${IGreen}NukkitX (последняя версия).${White}\n"
 		wget https://ci.nukkitx.com/job/NukkitX/job/Nukkit/job/master/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar
 		mv nukkit-1.0-SNAPSHOT.jar nukkit.jar
 		if [ -n "dpkg -l | grep java" ]
@@ -402,34 +402,34 @@
 				if [ -f "src/pocketmine/PocketMine.php" ]; then
 					echo -en "\n${BIRed}Не найдена работающая библиотека PHP7!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
-					echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
-					echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+					echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
+					echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 					CHECKING_INSTALL
 				elif [ -f "PocketMine-MP.phar" ]; then
 					echo -en "\n${BIRed}Не найдена работающая библиотека PHP7!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
-					echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
-					echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+					echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
+					echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 					CHECKING_INSTALL
 				else
 					echo -en "\n${BIRed}В этой директории не установлен сервер!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
-					echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+					echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 					CHECKING_INSTALL
 				fi
 			fi
 		elif [ -n "dpkg -l | grep java" ]; then
 			if [ -f "nukkit.jar" ]; then
-				echo -en "\n${BIBlue}Включение сервера...\n\n"
-				echo -en "${White}Введите объём памяти, который хотите выделить.\n"
+				echo -en "\n${BIBlue}Запуск сервера..\n\n"
+				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу\n"
 				echo -en "> "
 				read G
 				java -jar -Xmx${G}G nukkit.jar
 				echo -en "${IYellow}Сервер был выключен.\n"
 				MAIN_MENU
 			elif [ -f "gomint.jar" ]; then
-				echo -en "\n${BIBlue}Включение сервера...\n\n"
-				echo -en "${White}Введите объём памяти, который хотите выделить.\n"
+				echo -en "\n${BIBlue}Запуск сервера..\n\n"
+				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу\n"
 				echo -en "> "
 				read G
 				java -jar -Xmx${G}G gomint.jar
@@ -438,21 +438,21 @@
 			else
 				echo -en "\n${BIRed}Не найдено работающее ядро Java!\n"
 				echo -en "${BIRed}Запуск сервера невозможен!\n"
-				echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
-				echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+				echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
+				echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 				CHECKING_INSTALL
 			fi
 		else
 			if [ -f "nukkit.jar" ]; then
 				echo -en "\n${BIRed}Не найдена работающая библиотека Java!\n"
 				echo -en "${BIRed}Запуск сервера невозможен!\n"
-				echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
-				echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+				echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
+				echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 				CHECKING_INSTALL
 			else
 				echo -en "\n${BIRed}В этой директории не установлен сервер!\n"
 				echo -en "${BIRed}Запуск сервера невозможен!\n"
-				echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+				echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 				CHECKING_INSTALL
 			fi
 		fi
@@ -494,26 +494,26 @@
 				if [ -f "src/pocketmine/PocketMine.php" ]; then
 					echo -en "\n${BIRed}Не найдена работающая библиотека PHP7!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
-					echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
-					echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+					echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
+					echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 					CHECKING_INSTALL
 				elif [ -f "PocketMine-MP.phar" ]; then
 					echo -en "\n${BIRed}Не найдена работающая библеотека PHP7!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
-					echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
-					echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+					echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
+					echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 					CHECKING_INSTALL
 				else
 					echo -en "\n${BIRed}В этой директории не установлен сервер!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
-					echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+					echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 					CHECKING_INSTALL
 				fi
 			fi
 		elif [ -n "dpkg -l | grep java" ]; then
 			if [ -f "nukkit.jar" ]; then
-				echo -en "\n${BIBlue}Включение сервера.\n\n"
-				echo -en "${White}Введите объём памяти, который хотите выделить серверу.\n"
+				echo -en "\n${BIBlue}Запуск сервера..\n\n"
+				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу\n"
 				echo -en "> "
 				read G
 				while true
@@ -532,8 +532,8 @@
 					sleep 5
 				done
 			elif [ -f "gomint.jar" ]; then
-				echo -en "\n${BIBlue}Включение сервера\n\n"
-				echo -en "${White}Введите объём памяти, который хотите выделить серверу.\n"
+				echo -en "\n${BIBlue}Запуск сервера..\n\n"
+				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу\n"
 				echo -en "> "
 				read G
 				while true
@@ -554,21 +554,21 @@
 			else
 				echo -en "\n${BIRed}Не найдено работающее ядро Java!\n"
 				echo -en "${BIRed}Запуск сервера невозможен!\n"
-				echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
-				echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+				echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
+				echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 				CHECKING_INSTALL
 			fi
 		else
 			if [ -f "nukkit.jar" ]; then
 				echo -en "\n${BIRed}Не найдена работающая библиотека Java!\n"
 				echo -en "${BIRed}Запуск сервера невозможен!\n"
-				echo -en "${IYellow}Возможно, сервер был неправильно установлен.\n"
-				echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+				echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
+				echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 				CHECKING_INSTALL
 			else
 				echo -en "\n${BIRed}В этой директории не установлен сервер!\n"
 				echo -en "${BIRed}Запуск сервера невозможен!\n"
-				echo -en "${IGreen}Воспользуйтесь установщиком из нашей панели!\n"
+				echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 				CHECKING_INSTALL
 			fi
 		fi
@@ -585,18 +585,18 @@
 	}
 
 	function START_SERVER_MENU(){
-		echo -en "\n${BIBlue}Запуск сервера\n\n"
-		echo -en "${White}Выберите дальнейшие действия...\n"
-		echo -en "1. Зациклить запуск сервера (автоматический перезапуск при падении)\n"
+		echo -en "\n${BIBlue}Запуск сервера..\n\n"
+		echo -en "${White}Выберите дальнейшее действия..\n"
+		echo -en "1. Зациклить запуск сервера (автоматический запуск при падении)\n"
 		echo -en "2. Обычный запуск сервера\n"
 		echo -en "3. Вернуться назад\n"
-		echo -en "* Ядро создано специально для форума 24serv.\n\n"
+		echo -en "* Панель создана специально для форума 24serv.\n\n"
 		echo -en "> "
 		LOOP_SERVER
 	}
 
 	function DELETE_SERVER(){
-		echo -en "\n${IBlue}Удаление сервера...${White}\n"
+		echo -en "\n${IBlue}Удаление сервера..${White}\n"
 		sleep 1
 		if [ -d "bin" ]; then
 			rm -rf bin
@@ -866,7 +866,7 @@
 
 	function BACKUPS(){
 		echo -en "\n${BIBlue}Резервные копии\n\n"
-		echo -en "${White}Все резервные копии хранятся локально!\nВыберите дальнейшие действия...\n"
+		echo -en "${White}Все резервные копии хранятся локально!\nВыберите дальнейшее действие..\n"
 		echo -en "1. Создать резервную копию\n"
 		echo -en "2. Удалить резервную копию\n"
 		echo -en "3. Восстановить резервную копию\n"
@@ -915,7 +915,7 @@
 
 	function UPDATE_CORE_CHOOSE(){
 		echo -en "\n${BIBlue}Выбор ядра\n\n"
-		echo -en "${White}Выберите ядро на котором будет стоять ваш сервер. Все ядра загружаются с официальных источников!\n"
+		echo -en "${White}Выберите ядро на котором будет работать ваш сервер. Все ядра загружаются с официальных источников!\n"
 		echo -en "1. PocketMine-MP\n"
 		echo -en "2. GenisysPro\n"
 		echo -en "3. NukkitX\n"
@@ -925,7 +925,7 @@
 	}
 
 	function UPDATE(){
-		echo -en "${IBlue}Обновление панели...${White}\n"
+		echo -en "${IBlue}Обновление панели..${White}\n"
 		sleep 1
 		apt-get install git
 		git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
@@ -954,7 +954,7 @@
 	function MAIN_MENU(){
 		echo -en "\n${BIBlue}Главное меню\n"
 		echo -en "\n"
-		echo -en "${White}Пожалуйста, выберите действие. Напишите номер действия и нажмите ENTER\n"
+		echo -en "${White}Пожалуйста, просмотрите список действий. Напишите номер действия и нажмите ENTER\n"
 		echo -en "1. Запустить сервер\n"
 		echo -en "2. Установить сервер\n"
 		echo -en "3. Обновить сервер\n"
