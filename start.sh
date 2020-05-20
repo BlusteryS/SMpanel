@@ -285,10 +285,10 @@
 		mv nukkit-1.0-SNAPSHOT.jar nukkit.jar
 		if [ -n "dpkg -l | grep java" ]
 		then
-			echo -en "${IGreen}Java 11 ${IBlue}уже установлена!${White}\n"
+			echo -en "${IGreen}Java${IBlue} уже установлена!${White}\n"
 		else
-			echo -en "${IBlue}Установка библиотек ${IGreen}Java 11.${White}\n"
-   			apt install openjdk-11-jre-headless
+			echo -en "${IGreen}Java${IBlue} не установлена, пробуем установить её.${White}\n"
+   			apt install default-jre
 		fi
 		INSTALL_FINISH
 	}
