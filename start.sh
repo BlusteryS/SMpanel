@@ -1,7 +1,7 @@
 #!/bin/bash
 
 	# Сброс
-	Color_Off='\e[0m'       # Text Reset
+	Color_Off='\e[0m'       # Text reset
 
 	# Обычные цвета
 	Black='\e[0;30m'        # Black
@@ -53,7 +53,7 @@
 	ICyan='\e[0;96m'        # Cyan
 	IWhite='\e[0;97m'       # White
 
-	# Жирные Высоко Интенсивные
+	# Жирные высоко интенсивные
 	BIBlack='\e[1;90m'      # Black
 	BIRed='\e[1;91m'        # Red
 	BIGreen='\e[1;92m'      # Green
@@ -73,9 +73,9 @@
 	On_ICyan='\e[0;106m'    # Cyan
 	On_IWhite='\e[0;107m'   # White
 
-	#Не смотрите код ниже. Это может навредить вам
+	# Не смотрите код ниже. Это может навредить вам!
 
-	VERSION='1.3.6'
+	VERSION='1.4.0'
 	DIR="$(cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 
 	function NEXT(){
@@ -83,7 +83,7 @@
 	}
 
 	function NOT(){
-		echo -en "Такого действия нет. Выберите действие ещё раз..\n> "
+		echo -en "Такого действия нет! Выберите действие ещё раз.\n> "
 	}
 
 	function EXIT(){
@@ -110,7 +110,7 @@
 	}
 
 	function PREPAIR_INSTALL(){
-		echo -en "\n${IBlue}Подготовка директории для установки сервера..${White}\n"
+		echo -en "\n${IBlue}Подготовка директории для установки сервера...${White}\n"
 		sleep 1
 		if [ -d "bin" ]; then
 			rm -rf bin
@@ -241,22 +241,21 @@
 		if [ -d "world" ]; then
 			rm -rf world
 		fi
-		apt-get install git || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian.${White}\n"
-		apt-get install screen || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian.${White}\n"
+		apt-get install git || yum install git || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian/CentOS.${White}\n"
+		apt-get install screen || yum install screen || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian/CentOS.${White}\n"
 		echo -en "${IBlue}Данные старого сервера успешно удалены.${White}\n"
 	}
 
-	#Yes, I tried, but nothing happened
 	function MINET(){
-		echo -en "${IBlue}Установка выбранного вами ядра - ${IGreen}MiNET${White}\n"
+		echo -en "${IBlue}Установка ядра - ${IGreen}MiNET${White}\n"
 		git clone https://github.com/NiclasOlofsson/MiNET.git
 		mv MiNET/* $DIR
 		rm -rf MiNET
-		echo -en "${IBlue}Установка необходимых пакетов..${White}\n"
+		echo -en "${IBlue}Установка необходимых пакетов...${White}\n"
 		apt install mono-xbuild
 		apt install mono
 		apt install mono-runtime
-		echo -en "${IBlue}Компиляция ядра..${White}\n"
+		echo -en "${IBlue}Компиляция ядра...${White}\n"
 		xbuild src/MiNET/MiNET.sln
 		cd src/MiNET/MiNET.Service/bin/Linux
 		mono MiNET.Service.exe
@@ -277,7 +276,7 @@
 	#}
 
 	function NUKKITX(){
-		echo -en "${IBlue}Установка выбранного вами ядра - ${IGreen}NukkitX (последняя версия).${White}\n"
+		echo -en "${IBlue}Установка ядра ${IGreen}NukkitX (последняя версия).${White}\n"
 		wget https://ci.nukkitx.com/job/NukkitX/job/Nukkit/job/master/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar
 		mv nukkit-1.0-SNAPSHOT.jar nukkit.jar
 		if [ -n "dpkg -l | grep java" ]
@@ -291,7 +290,7 @@
 	}
 
 	function GENISYSPRO(){
-		echo -en "${IBlue}Установка ядра ${IGreen}Genisys (1.1.x)${White}.\n"
+		echo -en "${IBlue}Установка ядра ${IGreen}GenisysPro (1.1.x)${White}.\n"
 		git clone https://github.com/GenisysPro/GenisysPro.git
 		mv GenisysPro/src $DIR
 		rm -rf GenisysPro
@@ -341,12 +340,10 @@
 		echo -en "${White}Выберите ядро, на котором будет стоять Ваш сервер. Все ядра загружаются с официальных источников!\n"
 		echo -en "1. PocketMine-MP (PHP, MC: последняя версия)\n"
 		echo -en "2. GenisysPro (PHP, MC: 1.1)\n"
-		#echo -en "3. NukkitX (JAVA, MC 1.1)\n"
 		echo -en "3. NukkitX (JAVA, MC: последняя версия)\n"
 		echo -en "${BRed}4. SteadFast2 (PHP, MC: 1.X (все версии))\n${White}"
 		#echo -en "5. GoMint (JAVA, MC последняя версия)\n"
 		#echo -en "5. GoMine (GOLANG, MC последняя версия)\n"
-		#Will be released in version 1.5.0
 		#echo -en "7. MiNET (C#, 1.8)\n"
 		echo -en "> "
 		CORE_SELECT
@@ -766,7 +763,7 @@
 			cd $DIR
 			BACKUPS
 		else
-			echo -en "Такой резервной копии нет\n"
+			echo -en "Такой резервной копии нет!\n"
 			echo -en "> "
 			DELETE
 		fi
@@ -813,9 +810,9 @@
 	function COPY_BACKUP(){
 		cd /root/.panel_backups
 		echo -en "\n${BIBlue}Загрузка резервной копии\n\n"
-		echo -en "${White}Ваши резервные копии\n"
+		echo -en "${White}Ваши резервные копии:\n"
 		ls
-		echo -en "Введите название резервной копии\n"
+		echo -en "Введите название резервной копии!\n"
 		echo -en "> "
 		COPY
 	}
@@ -823,9 +820,9 @@
 	function BACKUP(){
 		cd /root/.panel_backups
 		echo -en "\n${BIBlue}Восстановление резервной копии\n\n"
-		echo -en "${White}Ваши резервные копии\n"
+		echo -en "${White}Ваши резервные копии:\n"
 		ls
-		echo -en "Введите название резервной копии\n"
+		echo -en "Введите название резервной копии!\n"
 		echo -en "> "
 		RESTORE
 	}
@@ -833,16 +830,16 @@
 	function DELETE_BACKUP(){
 		cd /root/.panel_backups
 		echo -en "\n${BIBlue}Удаление резервной копии\n\n"
-		echo -en "${White}Ваши резервные копии\n"
+		echo -en "${White}Ваши резервные копии:\n"
 		ls
-		echo -en "Введите название резервной копии\n"
+		echo -en "Введите название резервной копии!\n"
 		echo -en "> "
 		DELETE
 	}
 
 	function CREATE_BACKUP(){
-		echo -en "\n${BIBlue}Создание резервной копии\n\n"
-		echo -en "${White}Введите название резервной копии\n"
+		echo -en "\n${BIBlue}Создание резервной копии...\n\n"
+		echo -en "${White}Введите название резервной копии!\n"
 		echo -en "> "
 		read A
 		echo -en "${IBlue}Создаётся резервная копия ${IGreen}${A}.tar.gz${White}\n"
@@ -915,7 +912,7 @@
 
 	function UPDATE_CORE_CHOOSE(){
 		echo -en "\n${BIBlue}Выбор ядра\n\n"
-		echo -en "${White}Выберите ядро на котором будет работать ваш сервер. Все ядра загружаются с официальных источников!\n"
+		echo -en "${White}Выберите ядро на котором будет работать Ваш сервер. Все ядра загружаются с официальных источников!\n"
 		echo -en "1. PocketMine-MP\n"
 		echo -en "2. GenisysPro\n"
 		echo -en "3. NukkitX\n"
@@ -925,7 +922,7 @@
 	}
 
 	function UPDATE(){
-		echo -en "${IBlue}Обновление панели..${White}\n"
+		echo -en "${IBlue}Обновление панели...${White}\n"
 		sleep 1
 		apt-get install git
 		git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
