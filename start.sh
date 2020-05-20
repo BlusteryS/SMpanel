@@ -1,6 +1,7 @@
 #!/bin/bash
 
-	# Сброс
+# Настройка цветов.
+	# Сброс текста
 	Color_Off='\e[0m'       # Text reset
 
 	# Обычные цвета
@@ -73,9 +74,9 @@
 	On_ICyan='\e[0;106m'    # Cyan
 	On_IWhite='\e[0;107m'   # White
 
-	# Не смотрите код ниже. Это может навредить вам!
+# Изменение кода ниже может сломать скрипт. Не делайте этого!
 
-	VERSION='1.4.1'
+	VERSION='1.4.2'
 	DIR="$(cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 
 	function NEXT(){
@@ -241,9 +242,12 @@
 		if [ -d "world" ]; then
 			rm -rf world
 		fi
-		apt-get install git || yum install git || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian/CentOS.${White}\n"
-		apt-get install screen || yum install screen || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian/CentOS.${White}\n"
-		echo -en "${IBlue}Данные старого сервера успешно удалены.${White}\n"
+		echo -en "\n${BIBlue}Выбор ОС\n\n"
+		echo -en "${White}Выберите, на какой ОС Вы сейчас находитесь.\n"
+		echo -en "1. Ubuntu/Debian\n"
+		echo -en "2. CentOS\n"
+		echo -en "> "
+		OS_SELECT
 	}
 
 	function MINET(){
@@ -313,7 +317,7 @@
 
 	function LITECORE(){
 		echo -en "${IBlue}Установка ядра ${IGreen}LiteCore${White}\n"
-		git clone https://github.com/Kenilworth/LiteCore.git
+		wget https://talk.24serv.pro/uploads/short-url/xBQzHcMRiFyyUlfmpamZ9IZUXCn.phar
 		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.2${White}\n"
 		wget https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastSuccessfulBuild/artifact/PHP-7.2-Linux-x86_64.tar.gz
 		tar -xvf PHP-7.2-Linux-x86_64.tar.gz
@@ -345,16 +349,35 @@
 		esac
 	}
 
+	function OS_SELECT(){
+		read A
+		case ${A} in
+			"1" ) REMOVE_UD;;
+			"2" ) REMOVE_CentOS;;
+			*) NOT && PREPAIR_INSTALL;;
+		esac
+	}
+
+	function REMOVE_UD(){
+		apt-get install git || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian/CentOS.${White}\n"
+		apt-get install screen || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian/CentOS.${White}\n"
+		echo -en "${IBlue}Данные старого сервера успешно удалены.${White}\n"
+	}
+
+	function REMOVE_CentOS(){
+		yum install git || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian/CentOS.${White}\n"
+		yum install screen || echo -en "${IBlue}Извините, но Ваша система не поддерживается. Пожалуйста, установите Ubuntu/Debian/CentOS.${White}\n"
+		echo -en "${IBlue}Данные старого сервера успешно удалены.${White}\n"
+	}
+
 	function CORE_CHOOSE(){
 		echo -en "\n${BIBlue}Выбор ядра\n\n"
 		echo -en "${White}Выберите ядро, на котором будет стоять Ваш сервер. Все ядра загружаются с официальных источников!\n"
-		echo -en "1. PocketMine-MP (PHP, MC: последняя версия)\n"
-		echo -en "2. GenisysPro (PHP, MC: 1.1)\n"
-		echo -en "3. NukkitX (JAVA, MC: последняя версия)\n"
+		echo -en "${BRed}1. PocketMine-MP (PHP, MC: последняя версия)\n${White}"
+		echo -en "${BRed}2. GenisysPro (PHP, MC: 1.1)\n${White}"
+		echo -en "${BRed}3. NukkitX (JAVA, MC: последняя версия)\n${White}"
 		echo -en "${BRed}4. SteadFast2 (PHP, MC: 1.2+)\n${White}"
-		echo -en "5. LiteCore (PHP, MC 1.1)\n"
-		#echo -en "5. GoMine (GOLANG, MC последняя версия)\n"
-		#echo -en "7. MiNET (C#, 1.8)\n"
+		echo -en "${BRed}5. LiteCore (PHP, MC 1.1)\n${White}"
 		echo -en "> "
 		CORE_SELECT
 	}
@@ -428,7 +451,7 @@
 		elif [ -n "dpkg -l | grep java" ]; then
 			if [ -f "nukkit.jar" ]; then
 				echo -en "\n${BIBlue}Запуск сервера..\n\n"
-				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу\n"
+				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу.\n"
 				echo -en "> "
 				read G
 				java -jar -Xmx${G}G nukkit.jar
@@ -436,7 +459,7 @@
 				MAIN_MENU
 			elif [ -f "gomint.jar" ]; then
 				echo -en "\n${BIBlue}Запуск сервера..\n\n"
-				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу\n"
+				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу.\n"
 				echo -en "> "
 				read G
 				java -jar -Xmx${G}G gomint.jar
@@ -520,7 +543,7 @@
 		elif [ -n "dpkg -l | grep java" ]; then
 			if [ -f "nukkit.jar" ]; then
 				echo -en "\n${BIBlue}Запуск сервера..\n\n"
-				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу\n"
+				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу.\n"
 				echo -en "> "
 				read G
 				while true
@@ -540,7 +563,7 @@
 				done
 			elif [ -f "gomint.jar" ]; then
 				echo -en "\n${BIBlue}Запуск сервера..\n\n"
-				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу\n"
+				echo -en "${White}Введите объём памяти, который Вы хотите выделить серверу.\n"
 				echo -en "> "
 				read G
 				while true
@@ -594,7 +617,7 @@
 	function START_SERVER_MENU(){
 		echo -en "\n${BIBlue}Запуск сервера..\n\n"
 		echo -en "${White}Выберите дальнейшее действия..\n"
-		echo -en "1. Зациклить запуск сервера (автоматический запуск при падении)\n"
+		echo -en "1. Зациклить запуск сервера (автоматический запуск при выключении)\n"
 		echo -en "2. Обычный запуск сервера\n"
 		echo -en "3. Вернуться назад\n"
 		echo -en "* Панель создана специально для форума 24serv.\n\n"
@@ -603,7 +626,7 @@
 	}
 
 	function DELETE_SERVER(){
-		echo -en "\n${IBlue}Удаление сервера..${White}\n"
+		echo -en "\n${IBlue}Удаление сервера...${White}\n"
 		sleep 1
 		if [ -d "bin" ]; then
 			rm -rf bin
@@ -736,7 +759,6 @@
 		fi
 		mkdir your_files
 		mv * your_files
-		apt-get install git
 		git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
 		mv SMpanel/start.sh start.sh
 		rm -rf SMpanel
@@ -932,9 +954,8 @@
 	}
 
 	function UPDATE(){
-		echo -en "${IBlue}Обновление панели...${White}\n"
+		echo -en "${IBlue}Обновление панели (нужен ${BRed}git${IBlue})...${White}\n"
 		sleep 1
-		apt-get install git
 		git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
 		mv SMpanel/start.sh start.sh
 		rm -rf SMpanel
