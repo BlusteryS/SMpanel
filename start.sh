@@ -419,13 +419,13 @@
 	}
 
 	function START_SERVER(){
-		if [ -f "bin/PHP 7/bin/php" ]; then
+		if [ -f "bin/php7/bin/php" ]; then
 			if [ -f "src/pocketmine/PocketMine.php" ]; then
-				bin/PHP 7/bin/php src/pocketmine/PocketMine.php
+				bin/php7/bin/php src/pocketmine/PocketMine.php
 				echo -en "${IYellow}Сервер был выключен.\n"
 				MAIN_MENU
 			elif [ -f "PocketMine-MP.phar" ]; then
-				bin/PHP 7/bin/php PocketMine-MP.phar
+				bin/php7/bin/php PocketMine-MP.phar
 				echo -en "${IYellow}Сервер был выключен.\n"
 				MAIN_MENU
 			else
