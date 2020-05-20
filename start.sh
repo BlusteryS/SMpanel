@@ -298,8 +298,8 @@
 		git clone https://github.com/GenisysPro/GenisysPro.git
 		mv GenisysPro/src $DIR
 		rm -rf GenisysPro
-		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.2.${White}\n"
-		wget https://jenkins.pmmp.io/job/PHP-7.2-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz
+		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.3.${White}\n"
+		wget https://github.com/shoki-3738/pmmp-Binary/blob/master/PHP_Linux-x86_64.tar.gz
 		tar -xvf PHP_Linux-x86_64.tar.gz
 		rm -rf PHP_Linux-x86_64.tar.gz
 		INSTALL_FINISH
@@ -308,20 +308,20 @@
 	function POCKETMINE(){
 		echo -en "${IBlue}Установка ядра ${IGreen}PocketMine-MP${White}\n"
 		wget https://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP.phar
-		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.2${White}\n"
-		wget https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastSuccessfulBuild/artifact/PHP-7.2-Linux-x86_64.tar.gz
-		tar -xvf PHP-7.2-Linux-x86_64.tar.gz
-		rm -rf PHP-7.2-Linux-x86_64.tar.gz
+		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.3${White}\n"
+		wget https://jenkins.pmmp.io/job/PHP-7.3-Aggregate/lastSuccessfulBuild/artifact/PHP-7.3-Linux-x86_64.tar.gz
+		tar -xvf PHP-7.3-Linux-x86_64.tar.gz
+		rm -rf PHP-7.3-Linux-x86_64.tar.gz
 		INSTALL_FINISH
 	}
 
 	function LITECORE(){
 		echo -en "${IBlue}Установка ядра ${IGreen}LiteCore${White}\n"
 		wget https://talk.24serv.pro/uploads/short-url/xBQzHcMRiFyyUlfmpamZ9IZUXCn.phar
-		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.2${White}\n"
-		wget https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastSuccessfulBuild/artifact/PHP-7.2-Linux-x86_64.tar.gz
-		tar -xvf PHP-7.2-Linux-x86_64.tar.gz
-		rm -rf PHP-7.2-Linux-x86_64.tar.gz
+		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.3${White}\n"
+		wget https://jenkins.pmmp.io/job/PHP-7.3-Aggregate/lastSuccessfulBuild/artifact/PHP-7.3-Linux-x86_64.tar.gz
+		tar -xvf PHP-7.3-Linux-x86_64.tar.gz
+		rm -rf PHP-7.3-Linux-x86_64.tar.gz
 		INSTALL_FINISH
 	}
 
@@ -331,9 +331,9 @@
 		mv Steadfast2/* $DIR
 		rm -rf Steadfast2
 		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.2.${White}\n"
-		wget https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastSuccessfulBuild/artifact/PHP-7.2-Linux-x86_64.tar.gz
-		tar -xvf PHP-7.2-Linux-x86_64.tar.gz
-		rm -rf PHP-7.2-Linux-x86_64.tar.gz
+		wget https://github.com/shoki-3738/pmmp-Binary/blob/master/PHP_Linux-x86_64.tar.gz
+		tar -xvf PHP_Linux-x86_64.tar.gz
+		rm -rf PHP_Linux-x86_64.tar.gz
 		INSTALL_FINISH
 	}
 
