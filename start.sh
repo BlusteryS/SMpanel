@@ -75,7 +75,7 @@
 
 	# Не смотрите код ниже. Это может навредить вам!
 
-	VERSION='1.4.0'
+	VERSION='1.4.1'
 	DIR="$(cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 
 	function NEXT(){
@@ -269,7 +269,7 @@
 	#	then
 	#		echo -en "${IGreen}Java 11 ${IBlue}уже установлена!${White}\n"
 	#	else
-	#		echo -en "${IBlue}Установка библеотек ${IGreen}Java 11.${White}\n"
+	#		echo -en "${IBlue}Установка библиотек ${IGreen}Java 11.${White}\n"
    	#		apt install openjdk-11-jre-headless
 	#	fi
 	#	INSTALL_FINISH
@@ -294,7 +294,7 @@
 		git clone https://github.com/GenisysPro/GenisysPro.git
 		mv GenisysPro/src $DIR
 		rm -rf GenisysPro
-		echo -en "${IBlue}Установка библеотек ${IGreen}PHP 7.2.${White}\n"
+		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.2.${White}\n"
 		wget https://jenkins.pmmp.io/job/PHP-7.2-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz
 		tar -xvf PHP_Linux-x86_64.tar.gz
 		rm -rf PHP_Linux-x86_64.tar.gz
@@ -304,7 +304,17 @@
 	function POCKETMINE(){
 		echo -en "${IBlue}Установка ядра ${IGreen}PocketMine-MP${White}\n"
 		wget https://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP.phar
-		echo -en "${IBlue}Установка библеотек ${IGreen}PHP 7.2${White}\n"
+		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.2${White}\n"
+		wget https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastSuccessfulBuild/artifact/PHP-7.2-Linux-x86_64.tar.gz
+		tar -xvf PHP-7.2-Linux-x86_64.tar.gz
+		rm -rf PHP-7.2-Linux-x86_64.tar.gz
+		INSTALL_FINISH
+	}
+
+	function LITECORE(){
+		echo -en "${IBlue}Установка ядра ${IGreen}LiteCore${White}\n"
+		git clone https://github.com/Kenilworth/LiteCore.git
+		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.2${White}\n"
 		wget https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastSuccessfulBuild/artifact/PHP-7.2-Linux-x86_64.tar.gz
 		tar -xvf PHP-7.2-Linux-x86_64.tar.gz
 		rm -rf PHP-7.2-Linux-x86_64.tar.gz
@@ -316,7 +326,7 @@
 		git clone https://github.com/Hydreon/Steadfast2.git
 		mv Steadfast2/* $DIR
 		rm -rf Steadfast2
-		echo -en "${IBlue}Установка библеотек ${IGreen}PHP 7.2.${White}\n"
+		echo -en "${IBlue}Установка библиотек ${IGreen}PHP 7.2.${White}\n"
 		wget https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastSuccessfulBuild/artifact/PHP-7.2-Linux-x86_64.tar.gz
 		tar -xvf PHP-7.2-Linux-x86_64.tar.gz
 		rm -rf PHP-7.2-Linux-x86_64.tar.gz
@@ -330,7 +340,7 @@
 			"2" ) PREPAIR_INSTALL && GENISYSPRO;;
 			"3" ) PREPAIR_INSTALL && NUKKITX;;
 			"4" ) PREPAIR_INSTALL && STEADFAST2;;
-			"5" ) PREPAIR_INSTALL && GOMINT;;
+			"5" ) PREPAIR_INSTALL && LITECORE;;
 			*) NOT && CORE_SELECT;;
 		esac
 	}
@@ -341,8 +351,8 @@
 		echo -en "1. PocketMine-MP (PHP, MC: последняя версия)\n"
 		echo -en "2. GenisysPro (PHP, MC: 1.1)\n"
 		echo -en "3. NukkitX (JAVA, MC: последняя версия)\n"
-		echo -en "${BRed}4. SteadFast2 (PHP, MC: 1.X (все версии))\n${White}"
-		#echo -en "5. GoMint (JAVA, MC последняя версия)\n"
+		echo -en "${BRed}4. SteadFast2 (PHP, MC: 1.2+)\n${White}"
+		echo -en "5. LiteCore (PHP, MC 1.1)\n"
 		#echo -en "5. GoMine (GOLANG, MC последняя версия)\n"
 		#echo -en "7. MiNET (C#, 1.8)\n"
 		echo -en "> "
@@ -386,24 +396,24 @@
 	}
 
 	function START_SERVER(){
-		if [ -f "bin/php7/bin/php" ]; then
+		if [ -f "bin/PHP 7/bin/php" ]; then
 			if [ -f "src/pocketmine/PocketMine.php" ]; then
-				bin/php7/bin/php src/pocketmine/PocketMine.php
+				bin/PHP 7/bin/php src/pocketmine/PocketMine.php
 				echo -en "${IYellow}Сервер был выключен.\n"
 				MAIN_MENU
 			elif [ -f "PocketMine-MP.phar" ]; then
-				bin/php7/bin/php PocketMine-MP.phar
+				bin/PHP 7/bin/php PocketMine-MP.phar
 				echo -en "${IYellow}Сервер был выключен.\n"
 				MAIN_MENU
 			else
 				if [ -f "src/pocketmine/PocketMine.php" ]; then
-					echo -en "\n${BIRed}Не найдена работающая библиотека PHP7!\n"
+					echo -en "\n${BIRed}Не найдена работающая библиотека PHP 7!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
 					echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
 					echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 					CHECKING_INSTALL
 				elif [ -f "PocketMine-MP.phar" ]; then
-					echo -en "\n${BIRed}Не найдена работающая библиотека PHP7!\n"
+					echo -en "\n${BIRed}Не найдена работающая библиотека PHP 7!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
 					echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
 					echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
@@ -456,12 +466,12 @@
 	}
 
 	function START_SERVER_LOOP(){
-		if [ -f "bin/php7/bin/php" ]; then
+		if [ -f "bin/PHP 7/bin/php" ]; then
 			if [ -f "src/pocketmine/PocketMine.php" ]; then
 				while true
 				do
-					bin/php7/bin/php src/pocketmine/PocketMine.php
-					echo -en "${IGreen}Сервер запустится через 2 секунды. Отменить запуск:${BIYellow} CTRL + C.${Color_Off}"
+					bin/PHP 7/bin/php src/pocketmine/PocketMine.php
+					echo -en "${IGreen}Сервер запустится через 3 секунды. Отменить запуск:${BIYellow} CTRL + C.${Color_Off}"
 					sleep 1
 					apt-get install git
 					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
@@ -475,8 +485,8 @@
 			elif [ -f "PocketMine-MP.phar" ]; then
 				while true
 				do
-					bin/php7/bin/php PocketMine-MP.phar
-					echo -en "${IGreen}Сервер перезапустится через 2 секунды. Отменить перезапуск:${BIYellow} CTRL + C.${Color_Off}"
+					bin/PHP 7/bin/php PocketMine-MP.phar
+					echo -en "${IGreen}Сервер перезапустится через 3 секунды. Отменить перезапуск:${BIYellow} CTRL + C.${Color_Off}"
 					sleep 1
 					apt-get install git
 					git clone https://github.com/BlusterySasha-SoulMine/SMpanel.git
@@ -489,13 +499,13 @@
 				done
 			else
 				if [ -f "src/pocketmine/PocketMine.php" ]; then
-					echo -en "\n${BIRed}Не найдена работающая библиотека PHP7!\n"
+					echo -en "\n${BIRed}Не найдена работающая библиотека PHP 7!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
 					echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
 					echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
 					CHECKING_INSTALL
 				elif [ -f "PocketMine-MP.phar" ]; then
-					echo -en "\n${BIRed}Не найдена работающая библеотека PHP7!\n"
+					echo -en "\n${BIRed}Не найдена работающая библиотека PHP 7!\n"
 					echo -en "${BIRed}Запуск сервера невозможен!\n"
 					echo -en "${IYellow}Возможно, сервер был некорректно установлен.\n"
 					echo -en "${IGreen}Воспользуйтесь инсталлятором из нашей панели!\n"
@@ -786,7 +796,7 @@
 			cd $DIR
 			BACKUPS
 		else
-			echo -en "Такой резервной копии нет\n"
+			echo -en "Такой резервной копии нет!\n"
 			echo -en "> "
 			RESTORE
 		fi
@@ -801,7 +811,7 @@
 			cd $DIR
 			BACKUPS
 		else
-			echo -en "Такой резервной копии нет\n"
+			echo -en "Такой резервной копии нет!\n"
 			echo -en "> "
 			RESTORE
 		fi
