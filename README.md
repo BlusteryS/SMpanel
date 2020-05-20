@@ -18,8 +18,8 @@ __SMpanel - многофункциональное программное обе
 Дистрибутивы, поддерживаемые ветвью `master`:
 - [x] Ubuntu
 - [x] Debian
+- [x] Linux Mint
 - [x] CentOS
-- [ ] Linux Mint
 - [ ] Fedora
 
 Список задач
